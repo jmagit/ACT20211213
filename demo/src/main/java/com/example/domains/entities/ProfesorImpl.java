@@ -1,17 +1,20 @@
 package com.example.domains.entities;
 
-public class ProfesorImpl implements Persona, Profesor {
+import org.springframework.stereotype.Component;
+
+@Component
+public class ProfesorImpl implements Persona, Profesor, Profe {
 
 	@Override
 	public String getNombre() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Pepito";
 	}
 
 	@Override
 	public String getApellidos() {
 		// TODO Auto-generated method stub
-		return null;
+		return "Grillo";
 	}
 
 	@Override

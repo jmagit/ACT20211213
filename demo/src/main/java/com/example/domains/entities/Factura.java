@@ -1,9 +1,26 @@
 package com.example.domains.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
-public class Factura {
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Positive;
+
+import org.hibernate.validator.constraints.Length;
+
+import lombok.Data;
+import lombok.NonNull;
+
+@Data
+@Autor(nombre = "Javier")
+public class Factura extends Entidad<Factura> {
 	public static enum Estado {
 		pendiente(0), pagada(1), cancelada(2);
 
@@ -51,10 +68,17 @@ public class Factura {
 		}
 	}
 	
+	@NonNull
+	@Positive
 	private int numFactura;
+	@PastOrPresent
+	private Date fecha;
+	@Length(max = 100)
+	@NotBlank
+	private String nombre;
+	
 	private List<Linea> lineas = new ArrayList<Factura.Linea>();
-	
-	
+
 	public Factura(int numFactura) {
 		this.numFactura = numFactura;
 		estado = Estado.getEnum(0);

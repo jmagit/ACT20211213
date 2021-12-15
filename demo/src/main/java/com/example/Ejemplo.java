@@ -2,9 +2,21 @@ package com.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BiFunction;
+
+import lombok.Value;
 
 public class Ejemplo {
 	public static final int MIN;
+	private String privado = "Esto es privado";
+	private String contraseña = "P@$$w0rd";
+	
+	public static <T> T generico(T param) {
+		return param;
+	}
+	public static <T> T sintipo(String nombre, Class<T> tipo) {
+		return null;
+	}
 	
 	static {
 		MIN = 0;
@@ -20,6 +32,7 @@ public class Ejemplo {
 		
 	}
 	public void otro() {
+		privado.length();
 		System.out.println("Soy el padre");
 		
 	}
@@ -88,6 +101,9 @@ public class Ejemplo {
 		}
 
 		List<String> lst = new ArrayList<String>();
+		lst.forEach(String::toUpperCase);
+		lst.forEach(item -> item.toUpperCase());
+		
 		ordenar(lst, new ComparacionBinaria());
 		ordenar(lst, new ComparacionTextual());
 		ordenar(lst, new Comparacion());
@@ -106,20 +122,21 @@ public class Ejemplo {
 		if(comparador.esMayor("", "")) {
 			
 		}
+		BiFunction<String, String, Integer> fnBiFunction = (a, b) -> -a.compareTo(b);
+		
 		ordenar(lst, (x, y) -> { 
 			var rslt = x.substring(0, 3).compareTo(y.substring(0, 3));
 			// ...
 			return rslt;
 			});
 		ordenar(lst, comparador);
-		
 //		ordenar(lst, Tipo.Binaria);
 //		ordenar(lst, Tipo.Textual);
 //		ordenar(lst);
 //		ordenarSinMayusculas(lst);
 	}
 	
-	void ordenar(List<String> lst, Comparador comparador) {
+	private void ordenar(List<String> lst, Comparador comparador) {
 		String a = "", b = "";
 		// ...
 		if(comparador.compara(a, b) < 0) {
@@ -185,4 +202,44 @@ public class Ejemplo {
 //		}
 //		// ...
 //	}
+	
+	@Value
+	class Punto {
+		int x, y;
+
+//		public Punto(int x, int y) {
+//			super();
+//			this.x = x;
+//			this.y = y;
+//		}
+//		
+	}
+	
+	private Punto origen;
+	public Punto getOrigen() {
+		return origen;
+	}
+	
+	record Punto2D(double x, double y) {}
+	
+	void mutable() {
+		var p1 = new Punto(1, 1);
+		
+		Punto2D punto2d = new Punto2D(0.0, 0.0);
+		
+		var cache = p1;
+		// ...
+		p1 = new Punto(10, 10);
+		// ...
+		if(cache == p1) {
+			
+		}
+//		
+//		var cache = p1.clone();
+//		// ...
+//		if(cache.equals(p1)) {
+//			
+//		}
+
+	}
 }
