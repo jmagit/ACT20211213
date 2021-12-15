@@ -1,5 +1,7 @@
 package com.example.domains.entities;
 
-public interface Empleado extends Persona {
+public interface Empleado {
+	double getSalario();
+	void setSalario(double salario);
 
 }

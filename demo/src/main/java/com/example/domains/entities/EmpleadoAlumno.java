@@ -1,17 +1,25 @@
 package com.example.domains.entities;
 
-public class EmpleadoAlumno implements Alumno, Empleado {
+import java.time.LocalDate;
 
-	@Override
-	public String getNombre() {
-		// TODO Auto-generated method stub
-		return null;
+public class EmpleadoAlumno extends PersonaImpl implements Empleado {
+
+	public EmpleadoAlumno(int id, String nombre, String apellidos, LocalDate fechaNacimiento) {
+		super(id, nombre, apellidos, fechaNacimiento);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public String getApellidos() {
+	public double getSalario() {
 		// TODO Auto-generated method stub
-		return null;
+		return 0;
 	}
+
+	@Override
+	public void setSalario(double salario) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

@@ -1,17 +1,28 @@
 package com.example.domains.entities;
 
-public class AlumnoImpl implements Alumno {
+import java.time.LocalDate;
 
-	@Override
-	public String getNombre() {
-		// TODO Auto-generated method stub
-		return null;
+public class AlumnoImpl extends PersonaImpl implements Alumno {
+	private double nota;
+	
+	public AlumnoImpl(int id, String nombre, String apellidos, LocalDate fechaNacimiento, double nota) {
+		super(id, nombre, apellidos, fechaNacimiento);
+		this.nota = nota;
 	}
 
 	@Override
-	public String getApellidos() {
-		// TODO Auto-generated method stub
-		return null;
+	public double getNota() {
+		return nota;
 	}
+
+	public void setNota(double nota) {
+		this.nota = nota;
+	}
+
+	@Override
+	public String toString() {
+		return "Alumno [nombre=" + getNombreCompleto() + " nota=" + nota + "]";
+	}
+	
 
 }

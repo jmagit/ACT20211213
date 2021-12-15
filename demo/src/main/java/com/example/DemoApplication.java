@@ -1,6 +1,7 @@
 package com.example;
 
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.domains.entities.AlumnoImpl;
 import com.example.domains.entities.Autor;
 import com.example.domains.entities.Empleado;
 import com.example.domains.entities.Entidad;
@@ -30,6 +32,24 @@ public class DemoApplication implements CommandLineRunner {
 	@Autowired
 	Profe profe;
 	
+	@Override
+	public void run(String... args) throws Exception {
+		List<Persona> lista = List.of(new AlumnoImpl(1, "Pepito", "Grillo", LocalDate.of(2000, 10, 10), 9.0),
+				new ProfesorImpl(2, "Profe", "Grillo", LocalDate.of(2002, 6, 1), "Java"),
+				new ProfesorImpl(3, "Otro", "Profe", LocalDate.of(1985, 1, 1), "Testing"),
+				new AlumnoImpl(4, "Pedro", "Pica Piedra", LocalDate.of(2003, 7, 30), 4.0),
+				new AlumnoImpl(5, "Pablo", "Marmol", LocalDate.of(2000, 2, 28), 7.0),
+				new AlumnoImpl(6, "Inigo", "Gosson", LocalDate.of(2003, 7, 3), 4.9),
+				new AlumnoImpl(7, "Omero", "Berndsen", LocalDate.of(2000, 3, 24), 6.8),
+				new AlumnoImpl(8, "Rafa", "Neilus", LocalDate.of(2001, 5, 28), 5.0),
+				new AlumnoImpl(9, "Bea", "Gieves", LocalDate.of(2002, 7, 7), 7.0),
+				new AlumnoImpl(10, "Giacomo", "Rosindill", LocalDate.of(2003, 12, 30), 6.0),
+				new AlumnoImpl(11, "Gracia", "Shipton", LocalDate.of(2001, 1, 4), 6.0),
+				new AlumnoImpl(12, "Herminia", "Carpe", LocalDate.of(2004, 12, 30), 8.0)
+				);
+		
+	}
+	
 	public void run1(String... args) throws Exception {
 		Elementos.ElementoObject[] provincias = new Elementos.ElementoObject[10];
 		
@@ -47,14 +67,13 @@ public class DemoApplication implements CommandLineRunner {
 		var o = Ejemplo.sintipo("Hola", Integer.class);
 		var p = new Elemento<ProfesorImpl, String>(ProfesorImpl.class, "Madrid");
 		Elemento<? extends Persona, String> persona = new Elemento<Persona, String>((Persona)null, "Madrid");
-		Elemento<? extends Persona, String> empleado = new Elemento<Empleado, String>((Empleado)null, "Madrid");
+//		Elemento<? extends Persona, String> empleado = new Elemento<Empleado, String>((Empleado)null, "Madrid");
 	}
 	
 	void kk(Elemento<? extends Persona, String> primitivo) {
 		primitivo.getKey().getApellidos();
 	}
-	@Override
-	public void run(String... args) throws Exception {
+	public void run2(String... args) throws Exception {
 //		String x = null;
 //		List<Integer> lst = new ArrayList<>();
 //		System.out.println(media(1, 2, 3));

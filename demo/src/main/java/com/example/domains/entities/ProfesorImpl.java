@@ -1,31 +1,40 @@
 package com.example.domains.entities;
 
+import java.time.LocalDate;
+
 import org.springframework.stereotype.Component;
 
 @Component
-public class ProfesorImpl implements Persona, Profesor, Profe {
+public class ProfesorImpl extends PersonaImpl implements Profesor, Empleado {
+	private String asignatura;
+	private double salario;
 
-	@Override
-	public String getNombre() {
-		// TODO Auto-generated method stub
-		return "Pepito";
-	}
-
-	@Override
-	public String getApellidos() {
-		// TODO Auto-generated method stub
-		return "Grillo";
-	}
-
-	@Override
-	public String getNombreCompleto() {
-		return getApellidos() + ", " + getNombre() ;
+	public ProfesorImpl(int id, String nombre, String apellidos, LocalDate fechaNacimiento, String asignatura) {
+		super(id, nombre, apellidos, fechaNacimiento);
+		this.asignatura = asignatura;
+		salario = nombre.hashCode() % 10000;
 	}
 
 	@Override
 	public String getAsignatura() {
-		// TODO Auto-generated method stub
-		return null;
+		return asignatura;
+	}
+
+	public void setAsignatura(String asignatura) {
+		this.asignatura = asignatura;
+	}
+
+	public double getSalario() {
+		return Math.abs(salario);
+	}
+
+	public void setSalario(double salario) {
+		this.salario = Math.abs(salario);
+	}
+
+	@Override
+	public String toString() {
+		return "Profesor [nombre=" + getNombreCompleto() + " asignatura=" + asignatura + "]";
 	}
 
 }
