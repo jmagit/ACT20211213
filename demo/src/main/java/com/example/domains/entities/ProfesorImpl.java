@@ -34,7 +34,7 @@ public class ProfesorImpl extends PersonaImpl implements Profesor, Empleado {
 
 	@Override
 	public String toString() {
-		return "Profesor [nombre=" + getNombreCompleto() + " asignatura=" + asignatura + "]";
+		return "Profesor [Nombre=" + getNombreCompleto() + " Asignatura=" + asignatura + "]";
 	}
 
 }
