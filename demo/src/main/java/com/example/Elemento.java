@@ -21,6 +21,7 @@ public class Elemento<K, V> {
 	public void setKey(K key) {
 		this.key = key;
 	}
+
 	public V getValue() {
 		if(value instanceof String s)
 			return (V)s.toUpperCase();
@@ -29,6 +30,15 @@ public class Elemento<K, V> {
 	public void setValue(V value) {
 		this.value = value;
 	}
+	
+	public <T> T calcula(T item, int otro) {
+		return item;
+	}
+	public <T> T conv(String cad, Class<T> tipo) throws InstantiationException, IllegalAccessException {
+		return tipo.newInstance();
+	}
+	
+	
 //	
 //	void dame(K item) {
 //		

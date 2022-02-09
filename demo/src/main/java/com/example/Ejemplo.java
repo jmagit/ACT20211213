@@ -3,6 +3,7 @@ package com.example;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiFunction;
+import java.util.function.Predicate;
 
 import lombok.Value;
 
@@ -117,7 +118,7 @@ public class Ejemplo {
 				return compara(a, b) < 0;
 			};
 		}
-		);
+		); 
 		Comparador comparador = (a, b) -> -a.compareTo(b);
 		if(comparador.esMayor("", "")) {
 			
@@ -134,6 +135,8 @@ public class Ejemplo {
 //		ordenar(lst, Tipo.Textual);
 //		ordenar(lst);
 //		ordenarSinMayusculas(lst);
+		Predicate<Integer> predicate = i -> i >= 0;
+		predicate.test(4);
 	}
 	
 	private void ordenar(List<String> lst, Comparador comparador) {
@@ -242,4 +245,22 @@ public class Ejemplo {
 //		}
 
 	}
+	
+	interface a {
+		void soloA();
+		default void abrir() {};
+	}
+	interface b {
+		void soloB();
+		default void abrir() {};
+	}
+	interface c extends a, b {
+
+		@Override
+		default void abrir() {
+			a.super.abrir();
+		}
+		
+	}
+
 }

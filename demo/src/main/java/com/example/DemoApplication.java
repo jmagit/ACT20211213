@@ -1,5 +1,6 @@
 package com.example;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ import com.example.domains.entities.Persona;
 import com.example.domains.entities.Profe;
 import com.example.domains.entities.Profesor;
 import com.example.domains.entities.ProfesorImpl;
+import com.example.exceptions.CursoException;
 
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
@@ -47,10 +49,31 @@ public class DemoApplication implements CommandLineRunner {
 				new AlumnoImpl(11, "Gracia", "Shipton", LocalDate.of(2001, 1, 4), 6.0),
 				new AlumnoImpl(12, "Herminia", "Carpe", LocalDate.of(2004, 12, 30), 8.0)
 				);
-		
+
 	}
 	
+	record Reg(int key, String value) { }
+ 
+	class RegImpl {
+		public final int key;
+		public final String value;
+		
+		public RegImpl(int key, String value) {
+			this.key = key;
+			this.value = value;
+		}
+
+		public int Key() {
+			return key;
+		}
+
+		public String Value() {
+			return value;
+		}
+		
+	}
 	public void run1(String... args) throws Exception {
+		Reg reg = new Reg(0, "Algo");
 		Elementos.ElementoObject[] provincias = new Elementos.ElementoObject[10];
 		
 		provincias[0] = new Elementos.ElementoObject(28, "Madrid");
@@ -68,6 +91,10 @@ public class DemoApplication implements CommandLineRunner {
 		var p = new Elemento<ProfesorImpl, String>(ProfesorImpl.class, "Madrid");
 		Elemento<? extends Persona, String> persona = new Elemento<Persona, String>((Persona)null, "Madrid");
 //		Elemento<? extends Persona, String> empleado = new Elemento<Empleado, String>((Empleado)null, "Madrid");
+		var rslt = primitivo.conv("Str", AlumnoImpl.class);
+		if(primitivo instanceof Elemento) {
+			
+		}
 	}
 	
 	void kk(Elemento<? extends Persona, String> primitivo) {
@@ -126,7 +153,7 @@ public class DemoApplication implements CommandLineRunner {
 //		System.out.println(p.getNombreCompleto());
 		var f = new Factura(-5);
 		if(f.isInvalid())
-			f.getErros().forEach(item -> System.out.println(item.getPropertyPath() + ": " + item.getMessage()));
+			f.getErrors().forEach(item -> System.out.println(item.getPropertyPath() + ": " + item.getMessage()));
 		
 		var anotaciones = f.getClass().getAnnotations();
 		for(var a: anotaciones)
@@ -135,7 +162,7 @@ public class DemoApplication implements CommandLineRunner {
 		if(f.getClass().getAnnotation(Autor.class) != null)
 			System.out.println(f.getClass().getAnnotation(Autor.class).nombre());
 		if(f.isInvalid())
-			f.getErros().forEach(this::pinta);
+			f.getErrors().forEach(this::pinta);
 	}
 	
 	public void pinta(ConstraintViolation<Entidad<Factura>> item) {
