@@ -20,7 +20,7 @@ import lombok.NonNull;
 
 @Data
 @Autor(nombre = "Javier")
-public class Factura extends Entidad<Factura> {
+public class Factura extends EntidadBase<Factura> {
 	public static enum Estado {
 		pendiente(0), pagada(1), cancelada(2);
 
@@ -114,4 +114,6 @@ public class Factura extends Entidad<Factura> {
 	}
 	
 	public Estado getEstado() { return estado; }
+	
+	
 }

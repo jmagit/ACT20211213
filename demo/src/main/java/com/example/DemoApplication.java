@@ -5,7 +5,9 @@ import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
+import javax.naming.OperationNotSupportedException;
 import javax.validation.ConstraintViolation;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import com.example.Ejemplo.a;
+import com.example.domains.entities.Alumno;
 import com.example.domains.entities.AlumnoImpl;
 import com.example.domains.entities.Autor;
 import com.example.domains.entities.Empleado;
-import com.example.domains.entities.Entidad;
+import com.example.domains.entities.EntidadBase;
 import com.example.domains.entities.Factura;
 import com.example.domains.entities.Persona;
 import com.example.domains.entities.Profe;
@@ -31,12 +35,13 @@ public class DemoApplication implements CommandLineRunner {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@Autowired
-	Profe profe;
+//	@Autowired
+//	Profesor profe;
 	
 	@Override
 	public void run(String... args) throws Exception {
-		List<Persona> lista = List.of(new AlumnoImpl(1, "Pepito", "Grillo", LocalDate.of(2000, 10, 10), 9.0),
+		List<Persona> lista = List.of(
+				new AlumnoImpl(1, "Pepito", "Grillo", LocalDate.of(2000, 10, 10), 9.0),
 				new ProfesorImpl(2, "Profe", "Grillo", LocalDate.of(2002, 6, 1), "Java"),
 				new ProfesorImpl(3, "Otro", "Profe", LocalDate.of(1985, 1, 1), "Testing"),
 				new AlumnoImpl(4, "Pedro", "Pica Piedra", LocalDate.of(2003, 7, 30), 4.0),
@@ -50,8 +55,119 @@ public class DemoApplication implements CommandLineRunner {
 				new AlumnoImpl(12, "Herminia", "Carpe", LocalDate.of(2004, 12, 30), 8.0)
 				);
 
+//		if(lista.stream().filter(item -> item instanceof Alumno).allMatch(item -> ((Alumno)item).getNota() > 5.0)) {
+//			System.out.println("No hay suspenso");
+//		}
+//		if(lista.stream().filter(item -> item instanceof Alumno).anyMatch(item -> ((Alumno)item).getNota() < 5.0)) {
+//			System.out.println("Hay suspensos");
+//		}
+//		var a = lista.stream().filter(item -> item instanceof Alumno).filter(item -> ((Alumno)item).getNota() < 5.0).findAny();
+//		System.out.println(a);
+		
+		var a = new AlumnoImpl(1, "kk", "Gssssssssssssssssss", LocalDate.of(2030, 10, 10), 9.0);
+		if(a.isValid()) {
+			System.out.println(a);
+		} else {
+			System.out.println(a.getErrorsMessage());
+		}
+		
+//		var a =	new AlumnoImpl(1, "Pepito", "Grillo", LocalDate.of(2000, 10, 10), 9.0);
+//		var p = new ProfesorImpl(1, "Profe", "Grillo", LocalDate.of(2002, 6, 1), "Java");
+//		if(a.equals(p))
+//			System.out.println("son iguales");
+//		if(a.hashCode() == p.hashCode())
+//			System.out.println("son iguales por hash");
+//		if(a.compareTo(p) == 0)
+//			System.out.println("son iguales por compared");
+		
+//		lista.stream()
+//			.filter(item -> item instanceof Profesor)
+//			.map(item -> (Profesor)item)
+//			.forEach(item -> System.out.println(item.getApellidos() + ", " + item.getAsignatura()));
+//		var p = lista.stream()
+//			.filter(item -> item instanceof Profesor)
+//			.map(item -> (Profesor)item)
+//			.sorted()
+//			.findFirst();
+//		if(p.isPresent())
+//			System.out.println(p.get());
+//		
+//		var l = lista.stream()
+//			.filter(item -> item instanceof Profesor)
+//			.map(item -> (Profesor)item)
+//			.sorted((a, b) -> a.getAsignatura().compareTo(b.getAsignatura()))
+//			.collect(Collectors.toList());
+//		// ...
+//		l.forEach(System.out::println);
+//		var sum = 
+//			lista.stream()
+//			.filter(item -> item.getNombre().startsWith("P"))
+//			.mapToInt(item -> {
+//				try {
+//					return item.getEdad();
+//				} catch (OperationNotSupportedException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//					return 0;
+//				}
+//			})
+//			.sum();
+//		var sum = 
+//				lista.stream()
+//				.filter(item -> item.getNombre().startsWith("P"))
+//				.map(item -> {
+//					try {
+//						return item.getEdad();
+//					} catch (OperationNotSupportedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//						return 0;
+//					}
+//				})
+//				.reduce(0, (a, item) -> a + item);
+//		
+//		System.out.println(sum);
+//		lista.stream()
+//		.filter(item -> item.getNombre().startsWith("P"))
+//		.forEach(item -> {
+//			try {
+//				System.out.println(item.getNombre() + " " + item.getEdad());
+//			} catch (OperationNotSupportedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		});
+		
+//			.forEach(this::pinta);
+//		.forEach(DemoApplication::pinta); -> item.pinta()
+//		.forEach(System.out::println);
+		
+		boolean soloAlumno = true, paginado = true;
+		int pagina = 0, fila = 3;
+		
+//		var consulta = lista.parallelStream();
+//		if(soloAlumno)
+//			consulta = consulta
+//				.filter(item -> item instanceof Alumno)
+//				.map(item -> (Alumno)item )
+//				.peek(item -> item.setNota(item.getNota() * 1.1))
+//				.map(item -> (Persona)item);
+//		if(paginado)
+//			consulta = consulta.sequential().sorted().skip(pagina * fila).limit(fila);
+//		// ...
+//		
+//		consulta.forEach(System.out::println);
+		//lista.forEach(System.out::println);
+//		List<Integer> listOfIntegers = List.of(1, 2, 3, 4, 5, 6, 7, 8, 9);
+//		System.out.println("Sequential Stream: ");
+//		listOfIntegers.stream().sorted((a,b) -> b-a).forEach(e -> System.out.print(e + " "));
+//		System.out.println("\nParallel Stream: ");
+//		listOfIntegers.stream().parallel().sequential().sorted((a,b) -> b-a).forEach(e -> System.out.print(e + " "));
+
 	}
-	
+	public void pinta(Object item) {
+		System.out.println(item);
+	}
 	record Reg(int key, String value) { }
  
 	class RegImpl {
@@ -165,7 +281,7 @@ public class DemoApplication implements CommandLineRunner {
 			f.getErrors().forEach(this::pinta);
 	}
 	
-	public void pinta(ConstraintViolation<Entidad<Factura>> item) {
+	public void pinta(ConstraintViolation<EntidadBase<Factura>> item) {
 		System.out.println(item.getPropertyPath() + ": " + item.getMessage());
 	}
 

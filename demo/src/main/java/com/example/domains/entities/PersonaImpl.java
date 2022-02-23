@@ -1,13 +1,25 @@
 package com.example.domains.entities;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.naming.OperationNotSupportedException;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
 
-public class PersonaImpl implements Persona {
+import org.hibernate.validator.constraints.Length;
+
+
+public class PersonaImpl extends EntidadBase<Persona> implements Persona {
+	@NotNull
 	private int id;
+	@NotBlank
+	@Length(min=2, max = 10)
 	private String nombre;
+	@Length(min=2, max = 10)
 	private String apellidos;
+	@Past
 	private LocalDate fechaNacimiento;
 	
 	transient private int edad;
@@ -57,7 +69,7 @@ public class PersonaImpl implements Persona {
 		this.fechaNacimiento = fechaNacimiento;
 		edad = LocalDate.now().getYear() - fechaNacimiento.getYear() - 
 				(LocalDate.now().getDayOfYear() < fechaNacimiento.getDayOfYear() ? 1 : 0);
-		assert edad >= 0 : "Edad negativa";
+//		assert edad >= 0 : "Edad negativa";
 	}
 	
 	public int getEdad() throws OperationNotSupportedException {
@@ -66,6 +78,25 @@ public class PersonaImpl implements Persona {
 		return edad;
 //		return LocalDate.now().getYear() - fechaNacimiento.getYear() - 
 //				(LocalDate.now().getDayOfYear() < fechaNacimiento.getDayOfYear() ? 1 : 0);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(getId());
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj instanceof Persona p)
+			return getId() == p.getId();
+		return false;
+	}
+
+	@Override
+	public int compareTo(Persona o) {
+		return getId() - o.getId();
 	}
 
 }

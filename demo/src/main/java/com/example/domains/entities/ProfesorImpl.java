@@ -4,7 +4,6 @@ import java.time.LocalDate;
 
 import org.springframework.stereotype.Component;
 
-@Component
 public class ProfesorImpl extends PersonaImpl implements Profesor, Empleado {
 	private String asignatura;
 	private double salario;

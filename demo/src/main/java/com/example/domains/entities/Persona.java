@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import javax.naming.OperationNotSupportedException;
 
-public interface Persona {
+public interface Persona extends Comparable<Persona>, Entidad<Persona> {
 	int getId();
 	String getNombre();
 	String getApellidos();
